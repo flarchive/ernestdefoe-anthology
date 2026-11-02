@@ -1,0 +1,678 @@
+// Anthology — built on Flarum's own CSS properties, so it follows the forum's
+// colours, dark mode and themes. Text and links set their colour explicitly,
+// with selectors specific enough to beat a theme's link and heading rules.
+
+@anthology-cover-ratio: ~"2 / 3";
+
+// Covers
+
+.AnthologyCover {
+  display: block;
+  width: 100%;
+  aspect-ratio: @anthology-cover-ratio;
+  object-fit: cover;
+  border-radius: var(--border-radius);
+  background: var(--control-bg);
+
+  &--blank {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    color: var(--control-color);
+    background: linear-gradient(160deg, var(--control-bg), color-mix(in srgb, var(--primary-color) 25%, var(--control-bg)));
+
+    .icon {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      opacity: 0.5;
+    }
+  }
+  &-letter {
+    font-size: 48px;
+    font-weight: bold;
+    line-height: 1;
+    opacity: 0.6;
+  }
+}
+
+.AnthologyStatus {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: bold;
+  line-height: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+
+  &--ongoing {
+    background: var(--primary-color);
+    color: var(--body-bg);
+  }
+  &--complete {
+    background: var(--control-bg);
+    color: var(--control-color);
+  }
+}
+
+// Directory and profile
+
+.AnthologyHead {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+
+  &-title {
+    margin: 0;
+    font-size: 20px;
+    color: var(--heading-color);
+  }
+}
+
+.AnthologyToolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 20px;
+
+  .Select {
+    width: auto;
+    max-width: 100%;
+  }
+  &-search {
+    flex: 1 1 180px;
+    min-width: 0;
+    width: auto;
+  }
+}
+
+.AnthologyTabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+
+  .Button.active {
+    background: var(--control-bg);
+    color: var(--control-color);
+    font-weight: bold;
+  }
+}
+
+.AnthologyGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(~"min(160px, 100%)", 1fr));
+  gap: 20px 16px;
+}
+
+.AnthologyCard {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  text-decoration: none;
+
+  &,
+  &:hover,
+  &:focus {
+    color: var(--text-color);
+    text-decoration: none;
+  }
+  &-cover {
+    position: relative;
+    display: block;
+    transition: transform 0.15s;
+
+    .AnthologyCover {
+      box-shadow: 0 2px 6px var(--shadow-color);
+    }
+    .AnthologyStatus {
+      position: absolute;
+      left: 8px;
+      bottom: 8px;
+    }
+  }
+  &:hover &-cover {
+    transform: translateY(-2px);
+  }
+  &-body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+  &-title {
+    font-weight: bold;
+    color: var(--heading-color);
+    overflow-wrap: anywhere;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  &-author,
+  &-meta {
+    font-size: 12px;
+    color: var(--muted-color);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.AnthologyEmpty {
+  color: var(--muted-color);
+  padding: 20px 0;
+}
+
+.AnthologyMore {
+  display: block;
+  margin: 20px auto 0;
+}
+
+// Series page
+
+.AnthologyHero {
+  position: relative;
+  overflow: hidden;
+  text-align: left;
+  padding: 30px 0;
+
+  &-backdrop {
+    position: absolute;
+    inset: -30px;
+    width: ~"calc(100% + 60px)";
+    height: ~"calc(100% + 60px)";
+    object-fit: cover;
+    filter: blur(24px) brightness(0.45);
+    // Its own layer: iOS WebKit paints a filtered image outside the
+    // compositor as a black box.
+    transform: translateZ(0);
+    will-change: transform;
+  }
+  .container {
+    position: relative;
+  }
+  &-inner {
+    display: flex;
+    gap: 28px;
+    align-items: flex-end;
+  }
+  &-cover {
+    flex: 0 0 200px;
+    width: 200px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  }
+  &-text {
+    flex: 1;
+    min-width: 0;
+    padding-bottom: 6px;
+  }
+  .AnthologyHero-title {
+    margin: 4px 0 6px;
+    font-size: 28px;
+    line-height: 1.25;
+    color: var(--contrast-color, var(--hero-color));
+    overflow-wrap: anywhere;
+  }
+  & &-crumb,
+  & &-author,
+  & &-author a {
+    color: var(--contrast-color, var(--hero-color));
+  }
+  &-crumb {
+    font-size: 13px;
+    opacity: 0.8;
+  }
+  &-author {
+    font-size: 15px;
+
+    a {
+      font-weight: bold;
+    }
+  }
+  &-facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 14px;
+    align-items: center;
+    margin: 14px 0 0;
+    padding: 0;
+    list-style: none;
+    font-size: 13px;
+    color: var(--contrast-color, var(--hero-color));
+  }
+
+  // On the blurred cover the text is always light: the backdrop is ours and always dark.
+  &--cover {
+    background: #111;
+
+    .AnthologyHero-title,
+    .AnthologyHero-crumb,
+    .AnthologyHero-author,
+    .AnthologyHero-author a,
+    .AnthologyHero-facts {
+      color: #fff;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    }
+    .AnthologyStatus {
+      text-shadow: none;
+    }
+  }
+}
+
+// Flarum 2 has no block button: the sidebar's and modals' buttons fill their column here.
+.AnthologySide .Button,
+.AnthologyEditModal .Button--primary,
+.AnthologyAddModal .Button--primary {
+  width: 100%;
+}
+
+.AnthologySide {
+  &-card {
+    margin-bottom: 16px;
+  }
+  &-note {
+    margin: 6px 0 0;
+    font-size: 12px;
+    color: var(--muted-color);
+  }
+  &-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .AnthologySide-back {
+    font-size: 13px;
+    color: var(--muted-color);
+  }
+}
+
+.AnthologyFollow--on {
+  color: var(--primary-color);
+}
+
+.AnthologyProgress {
+  margin-bottom: 12px;
+
+  &-bar {
+    height: 8px;
+    overflow: hidden;
+    border-radius: 4px;
+    background: var(--control-bg);
+
+    span {
+      display: block;
+      height: 100%;
+      background: var(--primary-color);
+      transition: width 0.3s;
+    }
+  }
+  &-text {
+    margin-top: 6px;
+    font-size: 12px;
+    color: var(--muted-color);
+  }
+}
+
+.AnthologyDescription {
+  margin-bottom: 24px;
+  font-size: 15px;
+  line-height: 1.6;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+  color: var(--text-color);
+}
+
+.AnthologyHeading {
+  margin: 0 0 10px;
+  font-size: 13px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: var(--muted-color);
+}
+
+.AnthologyContents {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.AnthologyChapter {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--control-bg);
+
+  &-number {
+    flex: 0 0 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--control-bg);
+    color: var(--control-color);
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 32px;
+    text-align: center;
+  }
+  &--read &-number {
+    background: var(--primary-color);
+    color: var(--body-bg);
+  }
+  .AnthologyChapter-link {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 0;
+    color: var(--text-color);
+    text-decoration: none;
+
+    &:hover .AnthologyChapter-title {
+      text-decoration: underline;
+    }
+  }
+  &-title {
+    font-weight: bold;
+    color: var(--heading-color);
+    overflow-wrap: anywhere;
+  }
+  &--read &-title {
+    color: var(--muted-color);
+  }
+  &-meta {
+    font-size: 12px;
+    color: var(--muted-color);
+  }
+  &-tools {
+    display: flex;
+    flex: 0 0 auto;
+  }
+}
+
+// On a chapter: the bar under the title and "Next chapter" after the text
+
+// The hero's items sit side by side; the bar takes a line of its own and never
+// grows past the hero.
+.DiscussionHero-items > .item-anthology {
+  display: block;
+  max-width: 100%;
+}
+
+.DiscussionHero .AnthologyBar {
+  box-sizing: border-box;
+  display: inline-flex;
+  max-width: 100%;
+  gap: 4px;
+  align-items: center;
+  margin-top: 10px;
+  padding: 4px;
+  border-radius: var(--border-radius);
+  background: color-mix(in srgb, currentColor 10%, transparent);
+  text-align: left;
+
+  a,
+  a:hover,
+  .AnthologyBar-step {
+    color: var(--contrast-color, var(--hero-color));
+    text-decoration: none;
+  }
+  .AnthologyBar-series {
+    display: flex;
+    flex: 0 1 auto;
+    gap: 8px;
+    align-items: center;
+    min-width: 0;
+    padding: 2px 8px 2px 2px;
+  }
+  .AnthologyBar-cover {
+    flex: 0 0 auto;
+    width: 26px;
+    height: 38px;
+    object-fit: cover;
+    border-radius: 3px;
+  }
+  .AnthologyBar-text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    line-height: 1.3;
+  }
+  .AnthologyBar-label {
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+  .AnthologyBar-title {
+    font-size: 14px;
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .AnthologyBar-nav {
+    display: flex;
+    flex: 0 0 auto;
+  }
+  .AnthologyBar-step {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: var(--border-radius);
+
+    &:hover {
+      background: color-mix(in srgb, currentColor 12%, transparent);
+    }
+    &.disabled {
+      opacity: 0.35;
+    }
+  }
+}
+
+.AnthologyNext {
+  margin: 0 0 20px;
+  padding: 16px;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--control-bg);
+  background: var(--body-bg);
+
+  &-meta {
+    margin-bottom: 10px;
+    font-size: 13px;
+    color: var(--muted-color);
+
+    a {
+      color: var(--text-color);
+      font-weight: bold;
+    }
+  }
+  &-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .AnthologyNext-next {
+    display: inline-flex;
+    gap: 4px;
+    align-items: center;
+    max-width: 100%;
+    min-width: 0;
+    margin-left: auto;
+  }
+  &-nextTitle {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+  }
+}
+
+// Modals
+
+.AnthologyAddModal {
+  &-intro {
+    color: var(--muted-color);
+  }
+  &-current {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: var(--border-radius);
+    background: var(--control-bg);
+    color: var(--control-color);
+  }
+  &-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-height: 320px;
+    margin-bottom: 15px;
+    overflow-y: auto;
+  }
+  &-option {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 6px 8px;
+    border: 1px solid var(--control-bg);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    color: var(--text-color);
+
+    &.active {
+      border-color: var(--primary-color);
+    }
+    input {
+      flex: 0 0 auto;
+    }
+  }
+  .AnthologyAddModal-cover {
+    flex: 0 0 32px;
+    width: 32px;
+    border-radius: 3px;
+
+    .AnthologyCover-letter {
+      font-size: 14px;
+    }
+    .icon {
+      display: none;
+    }
+  }
+  &-name {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  &-title {
+    font-weight: bold;
+    overflow-wrap: anywhere;
+  }
+  &-meta {
+    font-size: 12px;
+    color: var(--muted-color);
+  }
+  &-new {
+    padding-top: 15px;
+    border-top: 1px solid var(--control-bg);
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+      color: var(--text-color);
+    }
+  }
+  &-newRow {
+    display: flex;
+    gap: 8px;
+
+    .FormControl {
+      flex: 1;
+      min-width: 0;
+    }
+  }
+}
+
+.AnthologyEditModal {
+  &-coverRow {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .AnthologyEditModal-preview {
+    flex: 0 0 72px;
+    width: 72px;
+
+    .AnthologyCover-letter {
+      font-size: 24px;
+    }
+  }
+  &-coverActions {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+  }
+}
+
+@media @phone {
+  .AnthologyGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px 12px;
+  }
+  .AnthologyHero {
+    padding: 20px 0;
+
+    &-inner {
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      text-align: center;
+    }
+    &-cover {
+      flex: 0 0 auto;
+      width: 150px;
+    }
+    &-facts {
+      justify-content: center;
+    }
+    .AnthologyHero-title {
+      font-size: 22px;
+    }
+  }
+  .DiscussionHero .AnthologyBar {
+    display: flex;
+    width: 100%;
+
+    .AnthologyBar-series {
+      flex: 1 1 auto;
+    }
+  }
+  .AnthologySide {
+    padding-top: 15px;
+  }
+  .AnthologyNext .AnthologyNext-next {
+    width: 100%;
+    margin-left: 0;
+    justify-content: center;
+  }
+  .AnthologyChapter-tools .Button {
+    width: 32px;
+    padding: 0;
+  }
+}
