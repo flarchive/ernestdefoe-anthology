@@ -2,13 +2,14 @@
 
 > **Read-only archive of released versions of ernestdefoe/anthology.** Not for installation: use [Packagist](https://packagist.org/packages/ernestdefoe/anthology) or the [upstream repository](https://github.com/ernestdefoe/anthology).
 
-**0** versions archived · Latest: [`1.0.1`](https://github.com/flarchive/ernestdefoe-anthology/tree/archive/v1.0.1) · License: `MIT` · Flarum: `^2.0`
+**2** versions archived · Latest: [`1.0.1`](https://github.com/flarchive/ernestdefoe-anthology/tree/archive/v1.0.1) · License: `MIT` · Flarum: `^2.0`
 
 ## Archived Versions
 
 | Version | Released | Flarum | Source |
 |---|---|---|---|
-| — | — | — | — |
+| `1.0.0` | 2026-11-02 | `^2.0` | [Browse](https://github.com/flarchive/ernestdefoe-anthology/tree/archive/v1.0.0) |
+| `1.0.1` | 2026-11-02 | `^2.0` | [Browse](https://github.com/flarchive/ernestdefoe-anthology/tree/archive/v1.0.1) |
 
 Catalog entry: [packages/ernestdefoe-anthology.json](https://github.com/flarchive/archive-index/blob/main/packages/ernestdefoe-anthology.json)
 
